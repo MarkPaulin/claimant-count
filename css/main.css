@@ -1,0 +1,32 @@
+.title {
+  font: 12pt sans-serif;
+}
+.source {
+  font: 9pt sans-serif;
+  text-anchor: end;
+}
+.legend {
+  font: 10pt sans-serif;
+  text-anchor: start;
+}
+.line {
+  fill: none;
+  stroke-opacity: 0.8;
+}
+.line--hover {
+  stroke-opacity: 0.3;
+}
+.voronoi path {
+  fill: none;
+  pointer-events: all;
+}
+.tooltip {
+  background: #666;
+  font: 11px sans-serif;
+  color: white;
+  position: absolute;
+        line-height: 1;
+        padding: 8px;
+        pointer-events: none;
+        line-height: 1.5;
+}
