@@ -1,8 +1,14 @@
 var draw = function(data) {
+	
+  var formatTime = d3.timeFormat("%B %Y"),
+    formatRate = d3.format(".2%");
+  
   data.forEach(function(d) {
     d.date = d3.timeParse("%Y %b")(d.date);
     d.rate = +d.rate;
   });
+  
+  let chart_title = `Seasonally adjusted claimant rate, ${formatTime(data[0].date)} to ${formatTime(data.slice(-1)[0].date)}`
 
   data_nest = d3.nest()
       .key(d => d.gender)
@@ -21,7 +27,7 @@ var draw = function(data) {
       .attr("class", "title")
       .attr("transform", `translate(${margin.left}, 0)`)
       .attr("dy", "1em")
-      .text("Seasonally adjusted claimant rate, April 1997 to July 2019");
+      .text(chart_title);
 
   svg.append("text")
       .attr("class", "source")
@@ -119,9 +125,6 @@ var draw = function(data) {
       .on("mouseover", mouseover)
       .on("mouseleave", mouseleave);
 
-  var formatTime = d3.timeFormat("%B %Y"),
-      formatRate = d3.format(".2%");
-
   function mouseover(d) {
     var l = data_nest.filter(g => g.key === d.data.gender);
     d3.select(l[0].values.line)
@@ -178,7 +181,6 @@ var draw = function(data) {
         .attr("y2", y0)
         .attr("x1", function(d, i) { return x0 - (i * 80); })
         .attr("x2", function(d, i) { return x0 - (i * 80) - xl; });
-
 }
 
 d3.json("data/claimant_count.json").then(draw);
